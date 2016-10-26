@@ -1,9 +1,9 @@
 //= require_self
 //= require_tree ./firebase-modules
 
-<% secrets = Rails.application.secrets %>
-
 (function() {
+  <% secrets = Rails.application.secrets %>
+
   var config = {
     apiKey: "<%= secrets.firebase_api_key %>",
     authDomain: "<%= secrets.firebase_auth_domain %>",

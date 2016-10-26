@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require firebase
+//= require application_helper
+//= require firebase/firebase
+//= require firebase-app
 //= require firebase-ui-auth
 //= require_tree .
