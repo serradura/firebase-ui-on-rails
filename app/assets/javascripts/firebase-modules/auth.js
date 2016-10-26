@@ -27,9 +27,9 @@ $(document).on('turbolinks:load', function() {
           provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID,
           scopes :[
             'public_profile',
-            'email',
-            'user_likes',
-            'user_friends'
+            'email'//,
+            // 'user_likes',
+            // 'user_friends'
           ]
         },
         firebase.auth.TwitterAuthProvider.PROVIDER_ID,
