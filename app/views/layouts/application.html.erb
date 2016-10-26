@@ -11,7 +11,11 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body data-controller-name="<%= controller_name %>" data-action-name="<%= action_name %>">
+  <body
+    data-controller-name="<%= controller_name %>"
+    data-action-name="<%= action_name %>"
+    data-firebase="<%= Rails.application.secrets[:firebase].to_json %>"
+  >
     <div id="container">
       <%= yield %>
     </div>

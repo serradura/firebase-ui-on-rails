@@ -6,10 +6,13 @@
     return $('body').data();
   }
 
-  helpers.isCurrentResource = function(expectedResource) {
+  function isCurrentResource(expectedResource) {
     var data = getBodyData();
     var resourceName = data['controllerName'] + '#' + data['actionName'];
 
     return expectedResource == resourceName;
   }
+
+  helpers.getBodyData = getBodyData;
+  helpers.isCurrentResource = isCurrentResource;
 })(this);
