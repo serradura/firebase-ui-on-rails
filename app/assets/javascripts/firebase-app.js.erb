@@ -1,0 +1,16 @@
+//= require_self
+//= require_tree ./firebase-modules
+
+<% secrets = Rails.application.secrets %>
+
+(function() {
+  var config = {
+    apiKey: "<%= secrets.firebase_api_key %>",
+    authDomain: "<%= secrets.firebase_auth_domain %>",
+    databaseURL: "<%= secrets.firebase_database_url %>",
+    storageBucket: "<%= secrets.firebase_storage_bucket %>",
+    messagingSenderId: "<%= secrets.firebase_messaging_sender_id %>"
+  };
+
+  firebase.initializeApp(config);
+})();
