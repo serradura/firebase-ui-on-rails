@@ -32,7 +32,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 # Rails Assets
-gem 'rails-assets-firebase', '3.5.0'
+gem 'rails-assets-firebase', '3.5.3'
 
 group :production do
   gem 'pg', '~> 0.19.0'
