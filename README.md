@@ -2,6 +2,11 @@
 
 This project is the Ruby on Rails version of [Firebaseui-web demo](https://github.com/firebase/firebaseui-web/tree/master/examples/demo).
 
+* FirebaseUI Web version
+```
+0.5
+```
+
 * Ruby version
 ```
 >= 2.2.2
