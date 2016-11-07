@@ -19,16 +19,18 @@ module Users
     private
 
     def create_user
-      User.find_by(user_params.slice(:email)).tap do |user|
-        if user.blank?
-          user = User.new
-          user.password = Devise.friendly_token.first(12)
-        end
+      user = User.find_by(user_params.slice(:email)
 
-        user.uid = user_params[:uid]
-        user.name = user_params[:displayName]
+      if user.blank?
+        user = User.new
+        user.email = user_params[:email]
+        user.password = Devise.friendly_token.first(12)
+      end
 
-        user.save
+      user.tap do |_user|
+        _user.uid = user_params[:uid]
+        _user.name = user_params[:displayName]
+        _user.save
       end
     end
 
