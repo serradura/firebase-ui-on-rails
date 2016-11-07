@@ -1,6 +1,8 @@
 # Firebase UI on Rails
 
-This project is the Ruby on Rails version of [Firebaseui-web demo](https://github.com/firebase/firebaseui-web/tree/master/examples/demo).
+This project is the Ruby on Rails version of [Firebaseui-web demo](https://github.com/firebase/firebaseui-web/tree/master/examples/demo) and has an integration with [Devise](https://github.com/plataformatec/devise).
+
+Link to **[Demo](https://firebase-ui-with-devise.herokuapp.com/)**.
 
 * FirebaseUI Web version
 ```

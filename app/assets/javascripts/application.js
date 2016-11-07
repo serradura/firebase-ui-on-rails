@@ -20,6 +20,7 @@
 //= require firebase-ui-auth
 //= require_tree .
 
+// Required to avoid InvalidToken error when logout via AJAX.
 $(document).ajaxComplete(function(event, xhr, settings) {
   var csrf_param = xhr.getResponseHeader('X-CSRF-Param');
   var csrf_token = xhr.getResponseHeader('X-CSRF-Token');
