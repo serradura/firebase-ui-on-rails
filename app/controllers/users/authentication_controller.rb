@@ -19,7 +19,7 @@ module Users
     private
 
     def create_user
-      user = User.find_by(user_params.slice(:email)
+      user = User.find_by user_params.slice(:email)
 
       if user.blank?
         user = User.new
