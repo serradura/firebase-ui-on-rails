@@ -14,3 +14,19 @@
  *= require_tree .
  *= require_self
  */
+
+body .flash {
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+}
+
+body .flash.flash-alert {
+  border-color: red;
+  color: red;
+}
+
+body .flash.flash-notice {
+ border-color: green;
+ color: green;
+}

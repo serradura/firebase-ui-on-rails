@@ -16,6 +16,10 @@
     data-action-name="<%= action_name %>"
     data-firebase="<%= Rails.application.secrets[:firebase].to_json %>"
   >
+    <% flash.each do |type, text| %>
+      <p class="flash flash-<%= type %>"><%= text %></p>
+    <% end %>
+
     <div id="container">
       <%= yield %>
     </div>
