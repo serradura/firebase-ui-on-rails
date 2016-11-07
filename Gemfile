@@ -31,6 +31,9 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'devise', '~> 4.2'
+gem 'jwt', '~> 1.5', '>= 1.5.6'
+
 # Rails Assets
 gem 'rails-assets-firebase', '3.5.3'
 
