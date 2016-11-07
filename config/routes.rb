@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: 'users/sessions' }
+
+  post 'users/authentication', to: 'users/authentication#create'
+
+  get 'secure_pages/dashboard'
+
   get 'pages/auth_widget'
 
   root 'pages#home'

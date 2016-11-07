@@ -12,6 +12,9 @@
         <div class="clearfix"></div>
       </div>
       <p>
+        <%= link_to "Dashboard (Secure page == Devise)", secure_pages_dashboard_path %>
+      </p>
+      <p>
         <button id="sign-out">Sign Out</button>
         <button id="delete-account">Delete account</button>
       </p>
@@ -19,8 +22,10 @@
     <div id="user-signed-out" class="hidden">
       <h4>You are signed out.</h4>
       <p>
-        <button id="sign-in-with-redirect">Sign In with Redirect</button>
-        <button id="sign-in-with-popup">Sign In with Popup</button>
+        <!-- Add display none style to test the authentication with Devise -->
+        <!-- Redirect and Popup methods was not covered -->
+        <button id="sign-in-with-redirect" style="display: none;">Sign In with Redirect</button>
+        <button id="sign-in-with-popup" style="display: none;">Sign In with Popup</button>
       </p>
       <div id="firebaseui-spa">
         <h5>Single Page Application mode:</h5>

@@ -1,5 +1,12 @@
+// TODO: Remove global variable, refactor with a module pattern.
+if (!window.____firebaseuiAuthAuthUI____) {
+  window.____firebaseuiAuthAuthUI____ = undefined;
+}
+
 $(document).on('turbolinks:load', function() {
-  if ( WebApp.helpers.isCurrentResource('pages#home') ) {
+  var helpers = WebApp.helpers;
+
+  if ( helpers.isCurrentResource('pages#home') || helpers.isCurrentResource('sessions#new') ) {
     var WIDGET_PAGE = '/pages/auth_widget';
 
     /**
@@ -10,7 +17,9 @@ $(document).on('turbolinks:load', function() {
       'callbacks': {
         // Called when the user has been successfully signed in.
         'signInSuccess': function(user, credential, redirectUrl) {
-          handleSignedInUser(user);
+
+          handleSignedInViaServer(user, credential);
+
           // Do not redirect.
           return false;
         }
@@ -41,7 +50,11 @@ $(document).on('turbolinks:load', function() {
     };
 
     // Initialize the FirebaseUI Widget using Firebase.
-    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    if (!window.____firebaseuiAuthAuthUI____) {
+      window.____firebaseuiAuthAuthUI____ = new firebaseui.auth.AuthUI(firebase.auth());
+    }
+
+    var ui = window.____firebaseuiAuthAuthUI____;
     // Keep track of the currently signed in user.
     var currentUid = null;
 
@@ -60,24 +73,48 @@ $(document).on('turbolinks:load', function() {
       window.open(WIDGET_PAGE, 'Sign In', 'width=985,height=735');
     };
 
+    var handleSignedInViaServer = function(user, credential) {
+      $.post("/users/authentication", {
+        user: JSON.parse(JSON.stringify(user)),
+        credential: JSON.parse(JSON.stringify(credential))
+      },function(data) {
+        if (data.auth) {
+          handleSignedInUser(user);
+        }
+      });
+    }
 
     /**
      * Displays the UI for a signed in user.
      */
     var handleSignedInUser = function(user) {
-      currentUid = user.uid;
-      document.getElementById('user-signed-in').style.display = 'block';
-      document.getElementById('user-signed-out').style.display = 'none';
-      document.getElementById('name').textContent = user.displayName;
-      document.getElementById('email').textContent = user.email;
-      if (user.photoURL){
-        document.getElementById('photo').src = user.photoURL;
-        document.getElementById('photo').style.display = 'block';
+      if ( helpers.isCurrentResource('pages#home') ) {
+        currentUid = user.uid;
+        document.getElementById('user-signed-in').style.display = 'block';
+        document.getElementById('user-signed-out').style.display = 'none';
+        document.getElementById('name').textContent = user.displayName;
+        document.getElementById('email').textContent = user.email;
+        if (user.photoURL){
+          document.getElementById('photo').src = user.photoURL;
+          document.getElementById('photo').style.display = 'block';
+        } else {
+          document.getElementById('photo').style.display = 'none';
+        }
       } else {
-        document.getElementById('photo').style.display = 'none';
+        // TODO: Turn the redirection path dynamic.
+        // This will redirect after sign in on /users/sign_in resource.
+        Turbolinks.visit("/secure_pages/dashboard");
       }
     };
 
+    // Devise Sign Out handler.
+    var handleSignedOutViaServer = function(successCallback) {
+      $.ajax({
+        method: "DELETE",
+        url: "/users/sign_out",
+        success: successCallback
+      });
+    }
 
     /**
      * Displays the UI for a signed out user.
@@ -102,7 +139,6 @@ $(document).on('turbolinks:load', function() {
       user ? handleSignedInUser(user) : handleSignedOutUser();
     });
 
-
     /**
      * Initializes the app.
      */
@@ -115,15 +151,21 @@ $(document).on('turbolinks:load', function() {
 
       document.getElementById('sign-out')
               .addEventListener('click', function() {
-                firebase.auth().signOut();
+                handleSignedOutViaServer(function() {
+                  firebase.auth().signOut();
+                });
               });
 
       document.getElementById('delete-account')
               .addEventListener('click', function() {
-                firebase.auth().currentUser.delete();
+                handleSignedOutViaServer(function() {
+                  firebase.auth().currentUser.delete();
+                });
               });
     };
 
-    initApp();
+    if ( helpers.isCurrentResource('pages#home') ) {
+      initApp();
+    }
   };
 });
